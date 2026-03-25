@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class CreateExercise extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -14,8 +14,8 @@ export default class CreateExercise extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      username:'',
-      description:'',
+      username: '',
+      description: '',
       duration: 0,
       date: new Date(),
       users: []
@@ -77,60 +77,72 @@ export default class CreateExercise extends Component {
   render() {
     return (
       <div>
-        <h3>Create New Exercise Log</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Username: </label>
-            <select
-              required
-              className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}
-            >
-              {this.state.users.map(function(user) {
-                return <option key={user} value={user}>{user}</option>;
-              })}
-            </select>
+        <div className="page-header">
+          <div>
+            <h1 className="page-title">Log Exercise</h1>
+            <p className="page-subtitle">Record a new workout session</p>
           </div>
+        </div>
+        <div className="form-card">
+          <form onSubmit={this.onSubmit}>
+            <div className="form-field">
+              <label className="form-label">Username</label>
+              <select
+                required
+                className="form-select"
+                value={this.state.username}
+                onChange={this.onChangeUsername}
+              >
+                {this.state.users.map(user => (
+                  <option key={user} value={user}>{user}</option>
+                ))}
+              </select>
+            </div>
 
-          <div className="form-group">
-            <label>Description: </label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-            />
-          </div>
+            <div className="form-field">
+              <label className="form-label">Exercise Description</label>
+              <input
+                type="text"
+                required
+                className="form-input"
+                placeholder="e.g. Morning run, Bench press..."
+                value={this.state.description}
+                onChange={this.onChangeDescription}
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Duration (in minutes):</label>
-            <input
-              type="number"
-              required
-              min="1"
-              step="1"
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-            />
-          </div>
+            <div className="form-field">
+              <label className="form-label">Duration (minutes)</label>
+              <input
+                type="number"
+                required
+                min="1"
+                step="1"
+                className="form-input"
+                placeholder="30"
+                value={this.state.duration}
+                onChange={this.onChangeDuration}
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Date: </label>
-            <div>
+            <div className="form-field">
+              <label className="form-label">Date</label>
               <DatePicker
                 selected={this.state.date}
                 onChange={this.onChangeDate}
+                dateFormat="MMMM d, yyyy"
               />
             </div>
-          </div>
 
-          <div className="form-group">
-            <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
-          </div>
-        </form>
+            <button
+              type="submit"
+              className="btn-primary-gradient"
+              style={{ width: '100%', marginTop: '0.5rem' }}
+            >
+              Log Exercise
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

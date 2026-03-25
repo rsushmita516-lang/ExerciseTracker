@@ -100,63 +100,75 @@ class EditExercise extends Component {
         window.location = '/';
     }
 
-    render() {
-        return (
-            <div>
-            <h3>Edit Exercise Log</h3>
-            <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                    <label>Username: </label>
-                    <select
-                       required
-                       className="form-control"
-                       value={this.state.username}
-                       onChange={this.onChangeUsername}>
-                        {
-                            this.state.users.map(function(user) {
-                                return <option
-                                  key={user}
-                                  value={user}>{user}
-                                  </option>;
-                            })
-                        }
-                       </select>
-                </div>
-                <div className="form-group">
-                    <label>Description: </label>
-                    <input type="text"
-                        required
-                        className="form-control"
-                        value={this.state.description}
-                        onChange={this.onChangeDescription}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Duration (in minites):</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={this.state.duration}
-                        onChange={this.onChangeDuration}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Date: </label>
-                    <div>
-                      <DatePicker
-                        selected={this.state.date}
-                        onChange={this.onChangeDate}
-                    />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <input type="submit" value="Edit Exercise Log" className= "btn btn-primary" />
-              </div>
-            </form>
+  render() {
+    return (
+      <div>
+        <div className="page-header">
+          <div>
+            <h1 className="page-title">Edit Exercise</h1>
+            <p className="page-subtitle">Update your workout details</p>
+          </div>
+        </div>
+        <div className="form-card">
+          <form onSubmit={this.onSubmit}>
+            <div className="form-field">
+              <label className="form-label">Username</label>
+              <select
+                required
+                className="form-select"
+                value={this.state.username}
+                onChange={this.onChangeUsername}
+              >
+                {this.state.users.map(user => (
+                  <option key={user} value={user}>{user}</option>
+                ))}
+              </select>
             </div>
-        )
-    }
+
+            <div className="form-field">
+              <label className="form-label">Exercise Description</label>
+              <input
+                type="text"
+                required
+                className="form-input"
+                value={this.state.description}
+                onChange={this.onChangeDescription}
+              />
+            </div>
+
+            <div className="form-field">
+              <label className="form-label">Duration (minutes)</label>
+              <input
+                type="number"
+                required
+                min="1"
+                className="form-input"
+                value={this.state.duration}
+                onChange={this.onChangeDuration}
+              />
+            </div>
+
+            <div className="form-field">
+              <label className="form-label">Date</label>
+              <DatePicker
+                selected={this.state.date}
+                onChange={this.onChangeDate}
+                dateFormat="MMMM d, yyyy"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn-primary-gradient"
+              style={{ width: '100%', marginTop: '0.5rem' }}
+            >
+              Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default withRouter(EditExercise);
